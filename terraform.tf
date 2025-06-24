@@ -4,14 +4,13 @@
 provider "aws" {
   # The AWS region will be automatically picked up from environment variables (AWS_REGION, AWS_DEFAULT_REGION)
   # or your AWS configuration file (~/.aws/config).
-  # region = "us-west-1" # Removed hardcoded region
 }
 
 # --- Variables (corresponding to CloudFormation Parameters) ---
 variable "environment_name" {
   description = "A name prefix for resources to ensure uniqueness."
   type        = string
-  default     = "ExpenseTracker"
+  default     = "budgetledger"
 }
 
 variable "project_tag" {
@@ -83,7 +82,7 @@ variable "availability_zone2" {
 variable "eks_cluster_name" {
   description = "Name of the EKS cluster."
   type        = string
-  default     = "expense-tracker-eks-cluster"
+  default     = "budget-ledger-eks-cluster"
 }
 
 variable "eks_node_instance_type" {
@@ -113,13 +112,13 @@ variable "eks_node_max_size" {
 variable "db_instance_identifier" {
   description = "Identifier for the RDS DB instance."
   type        = string
-  default     = "expense-tracker-db"
+  default     = "budget-ledger-db"
 }
 
 variable "db_name" {
   description = "Initial database name."
   type        = string
-  default     = "expensetracker"
+  default     = "budgetledger"
 }
 
 variable "db_instance_class" {
@@ -548,7 +547,7 @@ resource "aws_db_instance" "my_rds_db_instance" {
   skip_final_snapshot  = true # Set to false for production to retain final snapshot
 
   tags = {
-    Name    = "${var.environment_name}-ExpenseDB"
+    Name    = "${var.environment_name}-budgetledgerDB"
     Project = var.project_tag
   }
 }
